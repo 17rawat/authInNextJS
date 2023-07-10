@@ -4,9 +4,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import toast from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 const Login = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -15,23 +16,27 @@ const Login = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    const loadingToastId = toast.loading("Processing...");
+
     try {
       const response = await axios.post("/api/users/login", user);
 
       // console.log(response);
 
-      console.log("login success", response.data);
+      // console.log("login success", response.data);
 
-      setUser({
-        email: "",
-        password: "",
-      });
+      if (response.data && response.data.msg) {
+        toast.success(response.data.msg);
+        router.push("/dashboard");
+      }
     } catch (error: any) {
       // console.log(error);
 
       console.log("login failed", error.response.data.msg);
       toast.error(error.response.data.msg);
     }
+
+    toast.dismiss(loadingToastId);
   };
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col py-12 sm:px-6 lg:px-8">
@@ -91,14 +96,23 @@ const Login = () => {
             </div>
           </form>
 
-          <p className="text-center text-gray-600 mt-4">
-            Dont have an account?{" "}
-            <Link className="text-blue-600" href="/signup">
-              SignUp
-            </Link>
-          </p>
+          <div className="flex justify-between mt-6">
+            <p className="text-center text-gray-600 ">
+              <Link className="text-blue-600" href="/forgotpassword">
+                Forgot Password
+              </Link>
+            </p>
+
+            <p className="text-center text-gray-600 ">
+              Dont have an account?{" "}
+              <Link className="text-blue-600" href="/signup">
+                SignUp
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
+      <Toaster />
     </div>
   );
 };

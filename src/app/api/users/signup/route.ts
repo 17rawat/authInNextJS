@@ -4,6 +4,9 @@ import User from "@/models/user";
 import { NextRequest, NextResponse } from "next/server";
 
 import bcryptjs from "bcryptjs";
+import { sendEmail } from "@/helper/mailer";
+
+connect();
 
 const POST = async (request: NextRequest) => {
   try {
@@ -15,21 +18,24 @@ const POST = async (request: NextRequest) => {
       return NextResponse.json({ msg: "User already exits" }, { status: 400 });
     }
 
-    const salt = await bcryptjs.genSalt(10);
-    const hashedPassword = await bcryptjs.hash(password, salt);
+    const hashedPassword = await bcryptjs.hash(password, 10); // encrypting the password
 
-    // const hashedPassword = await bcryptjs.hash(password, 10); // encrypting the password
-
-    const newUser = await User.create({
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
     });
 
-    console.log(newUser);
+    const savedUser = await newUser.save();
+    // console.log(savedUser);
+
+    // sending verification email
+    await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
 
     return NextResponse.json(
-      { msg: "user created successfully" },
+      {
+        msg: "We have sent you an email, Please verify to continue",
+      },
       { status: 200 }
     );
   } catch (error: any) {
@@ -38,5 +44,3 @@ const POST = async (request: NextRequest) => {
 };
 
 export { POST };
-
-connect();

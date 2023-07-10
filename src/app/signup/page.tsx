@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 
 const Signup = () => {
   const router = useRouter();
@@ -18,26 +18,26 @@ const Signup = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    const loadingToastId = toast.loading("Processing...");
+
     try {
       const response = await axios.post("/api/users/signup", user);
 
       // console.log(response.data);
+      // console.log("signup success", response.data);
 
-      setUser({
-        name: "",
-        email: "",
-        password: "",
-      });
-
-      router.push("/login");
-
-      console.log("signup success", response.data);
+      if (response.data && response.data.msg) {
+        toast.success(response.data.msg, { duration: 4000 });
+        router.push("/login");
+      }
     } catch (error: any) {
       // console.log(error);
 
-      console.log("signup failed", error.response.data.msg);
+      // console.log("signup failed", error.response.data.msg);
       toast.error(error.response.data.msg);
     }
+
+    toast.dismiss(loadingToastId);
   };
 
   return (
@@ -130,6 +130,8 @@ const Signup = () => {
           </p>
         </div>
       </div>
+
+      <Toaster />
     </div>
   );
 };

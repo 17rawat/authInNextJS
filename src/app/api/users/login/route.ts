@@ -7,6 +7,8 @@ import { NextRequest, NextResponse } from "next/server";
 
 import bcryptjs from "bcryptjs";
 
+connect();
+
 const POST = async (request: NextRequest) => {
   try {
     const requestBody = await request.json();
@@ -59,5 +61,3 @@ const POST = async (request: NextRequest) => {
 };
 
 export { POST };
-
-connect();
