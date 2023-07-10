@@ -1,4 +1,4 @@
-# Next.js Authentication System
+<!-- # Next.js Authentication System
 
 This is a Next.js authentication system built using TypeScript. It allows users to sign up, log in, verify their email after signing up, and reset their password if forgotten. The system uses Mailtrap for sending emails and Nodemailer for email integration.
 
@@ -62,4 +62,4 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 
 
-
+ -->

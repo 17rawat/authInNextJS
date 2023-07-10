@@ -30,6 +30,7 @@ export default function VerifyEmail() {
     if (token.length > 0) {
       verifyUserEmail();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   useEffect(() => {
