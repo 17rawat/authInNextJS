@@ -41,8 +41,8 @@ const ForgotPasswordPage = () => {
         </h2>
 
         <h5 className="mb-6 text-m bg-yellow-100 text-black p-4">
-          Forgotten your password? Enter your e-mail address below, and we will
-          send you an e-mail allowing you to reset it.
+          Forgotten your password? Enter your email address below, and we will
+          send you an email allowing you to reset it.
         </h5>
 
         <form onSubmit={handleSubmit}>

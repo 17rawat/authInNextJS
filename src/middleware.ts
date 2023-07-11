@@ -9,7 +9,7 @@ export default function middleware(request: NextRequest) {
     path === "/login" ||
     path === "/signup" ||
     path === "/verifyemail" ||
-    path === "/home";
+    path === "/";
 
   const token = request.cookies.get("token")?.value || "";
 
@@ -18,7 +18,7 @@ export default function middleware(request: NextRequest) {
   }
 
   if (!isPublicPath && !token) {
-    return NextResponse.redirect(new URL("/home", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 }
 
