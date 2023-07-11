@@ -6,7 +6,7 @@ export default function Home() {
     <div className="bg-gray-800 min-h-screen flex items-center justify-center">
       <div className="container mx-auto py-8">
         <h1 className="text-3xl text-white font-bold text-center mb-4">
-          Welcome to the AskGPT
+          Welcome to the botGPT.AI
         </h1>
         <div className="flex justify-center">
           <div className="inline-flex ">

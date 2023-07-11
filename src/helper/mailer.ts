@@ -28,7 +28,7 @@ export async function sendEmail({ email, emailType, userId }: any) {
     });
 
     const mailOptions = {
-      from: "askGPT.AI@gmail.com",
+      from: "botGPT.AI@gmail.com",
       to: email,
       subject:
         emailType === "VERIFY" ? "Verify your email" : "Reset your password",
