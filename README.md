@@ -60,6 +60,4 @@ The application should now be running at `http://localhost:3000`.
 
 Contributions are welcome! If you find any issues or have suggestions for improvements, please create a pull request or submit an issue in the GitHub repository.
 
-
-
  -->
